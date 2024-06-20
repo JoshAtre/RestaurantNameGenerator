@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Name Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Restaurant Name Generator</h1>
+    <p style="font-weight: bold; font-size: 1.6em;">Select an option to generate a restaurant name:</p>
+    </label><br>
+    <form id="optionForm">
+        <label>
+            <input type="radio" name="option" value="2"> Your restaurant is run by a bunch of Mexicans and white guys
+        </label><br>
+        <label>
+            <input type="radio" name="option" value="4"> Your restaurant is fake Chinese (like Panda Express but less financial mobility)
+        </label><br>
+        <label>
+            <input type="radio" name="option" value="6"> Your restaurant is run by a half-Chinese guy who desperately is trying to reconnect with his cultural roots but is invariably failing
+        </label><br>
+        <label>
+            <input type="radio" name="option" value="8"> Your restaurant is run by an angry divorced Chinese guy who's cooking out of pure spite because his ex-wife said he couldn't cook
+        </label><br>
+        <label>
+            <input type="radio" name="option" value="10"> Your restaurant is run by a Chinese family that immigrated to the US two years ago and is already more financially stable than all of their neighbors
+        </label><br>
+        <label>
+            <input type="radio" name="option" value="12"> Your restaurant is run by a massive chain middle-managed by angry Cantonese guys which have restaurants in every mall in the US with massive LED screens
+        </label><br>
+        <button type="button" onclick="generateName()">Generate Name</button>
+    </form>
+    <h2 id="result"></h2>
+    <script>
+        function generateName() {
+            const formData = new FormData(document.getElementById('optionForm'));
+            fetch('/generate', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.name;
+            });
+        }
+    </script>
+</body>
+</html>
